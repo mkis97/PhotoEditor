@@ -85,7 +85,7 @@ def contrastAndBrightness(img, valueContrast, valueBrightness):
     return newImage
 
 def changeSize(img, scaleFactor):
-    scaledImg = cv2.resize(img,None,fx=scaleFactor, fy=scaleFactor, interpolation = cv2.INTER_CUBIC)
+    scaledImg = cv2.resize(img, None, fx=scaleFactor, fy=scaleFactor, interpolation = cv2.INTER_CUBIC)
     return scaledImg
 
 def rotate(img, deg):
@@ -209,7 +209,24 @@ def main():
             print("(",index+1,")"," ",item)
         while(transformation<1 or transformation>2):
             transformation=int(input("Input transformation number: "))
+
+            if(transformation==1):
+                print("**Suggested scale factor range [0.1 - 2.5]**")
+                factor=float(input("Input scale factor: "))
+                transformImg=changeSize(selfie, factor)
+                cv2.imshow("Result", transformImg)
+                cv2.waitKey(0)
+                #cv2.imwrite("change_size_" + str(factor) + ".jpg", transformImg)
+            elif(transformation==2):
+                rotDeg=int(input("Input angle of rotation in degrees: "))
+                transformImg=rotate(selfie, rotDeg)
+                cv2.imshow("Result", transformImg)
+                cv2.waitKey(0)
+                #cv2.imwrite("rotate_" + str(rotDeg) + ".jpg", transformImg)
+            else:
+                print("")
+
     else:
-        print("Action code")
+        print("")
 
 main()
