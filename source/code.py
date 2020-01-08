@@ -108,7 +108,7 @@ def rotate(img, deg):
 
 def main():
     actions=["Effects", "Corrections", "Transformations"]
-    actionEffects=["invert Colors", "Gray", "B&W", "B&W Painting", "Scratch", "Linocut", "Cartoon", "Blue", "Red", "Green", "Artistic Scene"]
+    actionEffects=["Invert Colors", "Gray", "B&W", "B&W Painting", "Scratch", "Linocut", "Cartoon", "Blue", "Red", "Green", "Artistic Scene"]
     actionCorrections=["Contrast", "Sharpness"]
     actionTransformations=["Change size", "Rotate"]
 
@@ -123,12 +123,70 @@ def main():
     while(action<1 or action>3):
         action=int(input("Input action number: "))
 
-
     if action == 1:
         for index, item in enumerate(actionEffects):
             print("(",index+1,")"," ",item)
-        while(effect<1 or effect>4):
+        while(effect<1 or effect>11):
             effect=int(input("Input effect number: "))
+
+            if(effect==1):
+                effImg=invertColors(selfie)
+                cv2.imshow("Result", effImg)
+                cv2.waitKey(0)
+                #cv2.imwrite("invert_colors.jpg", eff1Img)
+            elif(effect==2):
+                effImg=grayImage(selfie)
+                cv2.imshow("Result", effImg)
+                cv2.waitKey(0)
+                #cv2.imwrite("gray_image.jpg", effImg)
+            elif(effect==3):
+                effImg=blackAndWhiteImage(selfie)
+                cv2.imshow("Result", effImg)
+                cv2.waitKey(0)
+                #cv2.imwrite("black_and_white.jpg", effImg)
+            elif(effect==4):
+                effImg=blackAndWhitePainting(selfie)
+                cv2.imshow("Result", effImg)
+                cv2.waitKey(0)
+                #cv2.imwrite("black_and_white_painting.jpg", effImg)
+            elif(effect==5):
+                effImg=scratch(selfie)
+                cv2.imshow("Result", effImg)
+                cv2.waitKey(0)
+                #cv2.imwrite("scratch.jpg", effImg)
+            elif(effect==6):
+                effImg=linocut(selfie)
+                cv2.imshow("Result", effImg)
+                cv2.waitKey(0)
+                #cv2.imwrite("linocut.jpg", effImg)
+            elif(effect==7):
+                effImg=cartoon(selfie)
+                cv2.imshow("Result", effImg)
+                cv2.waitKey(0)
+                #cv2.imwrite("cartoon.jpg", effImg)
+            elif(effect==8):
+                effImg=blueImg(selfie)
+                cv2.imshow("Result", effImg)
+                cv2.waitKey(0)
+                #cv2.imwrite("blue_image.jpg", effImg)
+            elif(effect==9):
+                effImg=redImg(selfie)
+                cv2.imshow("Result", effImg)
+                cv2.waitKey(0)
+                #cv2.imwrite("red_image.jpg", effImg)
+            elif(effect==10):
+                effImg=greenImg(selfie)
+                cv2.imshow("Result", effImg)
+                cv2.waitKey(0)
+                #cv2.imwrite("green_image.jpg", effImg)
+            elif(effect==11):
+                effImg=artisticScene(selfie)
+                cv2.imshow("Result", effImg)
+                cv2.waitKey(0)
+                #cv2.imwrite("artistic_scene.jpg", effImg)
+            else:
+                print("")
+
     elif action == 2:
         for index, item in enumerate(actionCorrections):
             print("(",index+1,")"," ",item)
