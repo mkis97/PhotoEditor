@@ -80,17 +80,13 @@ def sharpeness(img):
     sharpenedImage=cv2.filter2D(img,-1,kernel)
     return sharpenedImage 
 
-def contrast(img, value):
-  contrastedImg = np.zeros(img.shape, img.dtype)
-  for y in range(img.shape[0]):
-      for x in range(img.shape[1]):
-          for c in range(img.shape[2]):
-            contrastedImg[y,x,c]=np.clip(value*img[y,x,c], 0, 255)
-  return contrastedImg
+def contrastAndBrightness(img, valueContrast, valueBrightness):
+    newImage = cv2.convertScaleAbs(img, alpha=valueContrast, beta=valueBrightness)
+    return newImage
 
 def changeSize(img, scaleFactor):
-  scaledImg = cv2.resize(img,None,fx=scaleFactor, fy=scaleFactor, interpolation = cv2.INTER_CUBIC)
-  return scaledImg
+    scaledImg = cv2.resize(img,None,fx=scaleFactor, fy=scaleFactor, interpolation = cv2.INTER_CUBIC)
+    return scaledImg
 
 def rotate(img, deg):
     height, width = img.shape[:2]
@@ -109,7 +105,7 @@ def rotate(img, deg):
 def main():
     actions=["Effects", "Corrections", "Transformations"]
     actionEffects=["Invert Colors", "Gray", "B&W", "B&W Painting", "Scratch", "Linocut", "Cartoon", "Blue", "Red", "Green", "Artistic Scene"]
-    actionCorrections=["Contrast", "Sharpness"]
+    actionCorrections=["Contrast&Brightness", "Sharpness"]
     actionTransformations=["Change size", "Rotate"]
 
     action=0
@@ -133,7 +129,7 @@ def main():
                 effImg=invertColors(selfie)
                 cv2.imshow("Result", effImg)
                 cv2.waitKey(0)
-                #cv2.imwrite("invert_colors.jpg", eff1Img)
+                #cv2.imwrite("invert_colors.jpg", effImg)
             elif(effect==2):
                 effImg=grayImage(selfie)
                 cv2.imshow("Result", effImg)
@@ -190,8 +186,24 @@ def main():
     elif action == 2:
         for index, item in enumerate(actionCorrections):
             print("(",index+1,")"," ",item)
-        while(correction<1 or correction>3):
+        while(correction<1 or correction>2):
             correction=int(input("Input correction number: "))
+            
+            if(correction==1):
+                contrastValue=float(input("Input contrast value [0.0 - 3.0]: "))
+                brightnessValue=int(input("Input brightness value [1-100]: "))
+                correctionImg=contrastAndBrightness(selfie, contrastValue, brightnessValue)
+                cv2.imshow("Result", correctionImg)
+                cv2.waitKey(0)
+                #cv2.imwrite("contrast_" + str(contrastValue) + "_&_brightness_" + str(brightnessValue) + ".jpg", correctionImg)
+            elif(correction==2):
+                correctionImg=sharpeness(selfie)
+                cv2.imshow("Result", correctionImg)
+                cv2.waitKey(0)
+                #cv2.imwrite("sharpness.jpg", correctionImg)
+            else:
+                print("")
+
     elif action == 3:
         for index, item in enumerate(actionTransformations):
             print("(",index+1,")"," ",item)
