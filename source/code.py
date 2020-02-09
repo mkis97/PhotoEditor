@@ -4,8 +4,6 @@ import cv2
 from PIL import Image, ImageEnhance
 import matplotlib.pyplot as plt
 
-eiffel = cv2.imread(r'C:\Users\Marijo\Downloads\OSRV\PhotoEditor\images\eiffel.jpg')
-park = cv2.imread(r'C:\Users\Marijo\Downloads\OSRV\PhotoEditor\images\park.jpg')
 selfie = cv2.imread(r'C:\Users\Marijo\Downloads\OSRV\PhotoEditor\images\selfie.jpg')
 
 def artisticScene(img):
